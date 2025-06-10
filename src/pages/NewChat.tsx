@@ -1,7 +1,15 @@
-
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Send, BookOpen, Mic, Paperclip, Brain, Sparkles, Bot, BookText } from "lucide-react";
+import {
+  Send,
+  BookOpen,
+  Mic,
+  Paperclip,
+  Brain,
+  Sparkles,
+  Bot,
+  BookText,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/hooks/store/use-language";
@@ -20,7 +28,7 @@ const NewChat = () => {
   const [searchParams] = useSearchParams();
   const initialMessage = searchParams.get("message") || "";
   const isMobile = useIsMobile();
-  
+
   const [message, setMessage] = useState(initialMessage);
   const [isThinking, setIsThinking] = useState(false);
   const [showAttachments, setShowAttachments] = useState(false);
@@ -28,9 +36,9 @@ const NewChat = () => {
   const [selectedAttachments, setSelectedAttachments] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [floatingOrbs, setFloatingOrbs] = useState(Array.from({ length: 5 }));
-  
+
   const sendMessageMutation = useSendMessage();
-  
+
   // Focus input on component mount
   useEffect(() => {
     if (inputRef.current) {
@@ -66,58 +74,56 @@ const NewChat = () => {
       setShowAttachments(false);
     }
   };
-  
+
   const handleSendMessage = async () => {
     if (!message.trim()) return;
-    
+
     setIsThinking(true);
-    
+
     try {
       // Extract document URL and summary from selected attachments
       let documentURL = null;
       let selectedSummary = null;
-      
-      selectedAttachments.forEach(attachmentId => {
-        if (attachmentId.startsWith('placeholder-pdf-')) {
+
+      selectedAttachments.forEach((attachmentId) => {
+        if (attachmentId.startsWith("placeholder-pdf-")) {
           // This is a document
-          documentURL = "https://smartmate-lecture-recordings.s3.eu-north-1.amazonaws.com/rag-documents/1.pdf";
-        } else if (attachmentId.startsWith('summary-')) {
+          documentURL =
+            "https://smartmate-lecture-recordings.s3.eu-north-1.amazonaws.com/rag-documents/1.pdf";
+        } else if (attachmentId.startsWith("summary-")) {
           // This is a summary
-          selectedSummary = attachmentId.replace('summary-', '');
+          selectedSummary = attachmentId.replace("summary-", "");
         }
       });
 
       // Prepare message data for backend - no chatId means new chat
       const messageData = {
         chatTitle: "New Chat", // Auto-generate title for new chats
-        messages: [
-          { role: 'user' as const, content: message }
-        ],
+        messages: [{ role: "user" as const, content: message }],
         systemPromptId: 1, // Default system prompt
         documentURL: documentURL,
-        selectedSummary: selectedSummary
+        selectedSummary: selectedSummary,
       };
 
       console.log("Creating new chat with message:", messageData);
 
       // Send message to backend to create new chat
       const response = await sendMessageMutation.mutateAsync(messageData);
-      
+
       console.log("Backend response:", response);
-      
+
       // Navigate to the new chat
       if (response.id) {
-        navigate(`/chats/${response.id}`);
+        navigate(`/app/chats/${response.id}`);
       } else {
         throw new Error("No chat ID returned from server");
       }
-      
     } catch (error) {
       console.error("Error creating chat:", error);
       toast({
         title: "Error",
         description: "Failed to create new chat. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setIsThinking(false);
@@ -128,23 +134,23 @@ const NewChat = () => {
     {
       title: t("summarizeLecture"),
       message: "Can you summarize my thermodynamics lecture?",
-      icon: BookText
+      icon: BookText,
     },
     {
       title: t("keyConcepts"),
-      message: "What are the key concepts from today's lecture?", 
-      icon: Brain
+      message: "What are the key concepts from today's lecture?",
+      icon: Brain,
     },
     {
       title: "Generate Practice Questions",
       message: "Generate practice questions from my latest lecture",
-      icon: Sparkles
+      icon: Sparkles,
     },
     {
       title: "Explain Complex Concept",
       message: "Explain quantum computing in simple terms",
-      icon: Bot
-    }
+      icon: Bot,
+    },
   ];
 
   return (
@@ -182,47 +188,53 @@ const NewChat = () => {
         {/* Digital circuit lines with animations */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           {Array.from({ length: 5 }).map((_, index) => (
-            <motion.div 
+            <motion.div
               key={`h-line-${index}`}
               className="absolute h-[1px] w-full"
-              style={{ 
-                top: `${15 + index * 20}%`, 
-                background: index % 2 === 0 ? 'var(--smartmate-teal)' : 'var(--smartmate-blue)' 
+              style={{
+                top: `${15 + index * 20}%`,
+                background:
+                  index % 2 === 0
+                    ? "var(--smartmate-teal)"
+                    : "var(--smartmate-blue)",
               }}
               initial={{ scaleX: 0, opacity: 0.3, x: "-100%" }}
               animate={{ scaleX: 1, opacity: 0.7, x: "0%" }}
-              transition={{ 
-                duration: 2, 
+              transition={{
+                duration: 2,
                 delay: index * 0.3,
-                ease: "easeOut" 
+                ease: "easeOut",
               }}
             />
           ))}
-          
+
           {Array.from({ length: 3 }).map((_, index) => (
-            <motion.div 
+            <motion.div
               key={`v-line-${index}`}
               className="absolute w-[1px] h-full"
-              style={{ 
-                left: `${25 + index * 25}%`, 
-                background: index % 2 === 0 ? 'var(--smartmate-blue)' : 'var(--smartmate-teal)' 
+              style={{
+                left: `${25 + index * 25}%`,
+                background:
+                  index % 2 === 0
+                    ? "var(--smartmate-blue)"
+                    : "var(--smartmate-teal)",
               }}
               initial={{ scaleY: 0, opacity: 0.3, y: "-100%" }}
               animate={{ scaleY: 1, opacity: 0.7, y: "0%" }}
-              transition={{ 
-                duration: 2, 
+              transition={{
+                duration: 2,
                 delay: 1 + index * 0.3,
-                ease: "easeOut" 
+                ease: "easeOut",
               }}
             />
           ))}
         </div>
       </div>
-      
+
       <div className="flex-1 flex flex-col items-center justify-center px-4 relative z-10">
         <div className="flex flex-col items-center max-w-xl w-full text-center space-y-8">
           {/* Replace 3D Robot avatar with mascot */}
-          <motion.div 
+          <motion.div
             className="relative"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -231,7 +243,7 @@ const NewChat = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-smartmate-teal/30 via-smartmate-cyan/30 to-smartmate-blue/30 rounded-full blur-xl animate-pulse-slow"></div>
             <MascotAvatar size="xl" animate={true} className="relative z-10" />
           </motion.div>
-          
+
           {/* Title with animated reveal */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
@@ -241,30 +253,30 @@ const NewChat = () => {
             <h1 className="text-4xl font-bold font-orbitron mb-2 smartmate-text-gradient glow-effect">
               {t("askSmartMate")}
             </h1>
-            
+
             <p className="text-muted-foreground max-w-md">
               {t("newChatDescription")}
             </p>
           </motion.div>
-          
+
           {/* Enhanced chat input */}
-          <motion.div 
+          <motion.div
             className="w-full max-w-md flex flex-col gap-6 mt-4"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.5 }}
           >
             <div className="relative">
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-smartmate-teal/20 via-accent/10 to-smartmate-blue/20 rounded-2xl blur-xl"
-                animate={{ 
+                animate={{
                   scale: [1, 1.05, 1],
-                  opacity: [0.8, 1, 0.8]
+                  opacity: [0.8, 1, 0.8],
                 }}
-                transition={{ 
-                  duration: 3, 
+                transition={{
+                  duration: 3,
                   repeat: Infinity,
-                  repeatType: "reverse" 
+                  repeatType: "reverse",
                 }}
               ></motion.div>
               <div className="relative bg-secondary/30 backdrop-blur-xl rounded-2xl border border-smartmate-teal/30 shadow-lg group hover:border-smartmate-teal/50 transition-all duration-300">
@@ -276,7 +288,7 @@ const NewChat = () => {
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     className="flex-1 bg-transparent border-0 focus:outline-none text-foreground placeholder:text-muted-foreground/70 text-sm h-full"
-                    onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                   />
                   <Button
                     variant="outline"
@@ -291,8 +303,8 @@ const NewChat = () => {
                     disabled={!message.trim() || isThinking}
                     className={cn(
                       "h-10 w-10 p-0 rounded-full shrink-0",
-                      message.trim() 
-                        ? "bg-gradient-to-r from-smartmate-teal to-smartmate-cyan text-white hover:opacity-90" 
+                      message.trim()
+                        ? "bg-gradient-to-r from-smartmate-teal to-smartmate-cyan text-white hover:opacity-90"
                         : "bg-muted text-muted-foreground"
                     )}
                   >
@@ -321,7 +333,7 @@ const NewChat = () => {
                 />
               </motion.div>
             )}
-            
+
             {/* Suggestion chips with staggered animation */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {suggestions.map((suggestion, index) => (
@@ -331,10 +343,13 @@ const NewChat = () => {
                   className="text-sm bg-background/50 backdrop-blur-md border border-smartmate-teal/20 rounded-xl p-4 flex items-center gap-3 hover:bg-background/70 hover:border-smartmate-teal/40 transition-all duration-300 group text-left"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.7 + (index * 0.1), duration: 0.5 }}
-                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
+                  transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="h-10 w-10 rounded-full bg-gradient-to-br from-smartmate-teal/20 to-smartmate-blue/20 flex items-center justify-center shrink-0"
                     whileHover={{ rotate: 5 }}
                   >
@@ -344,20 +359,20 @@ const NewChat = () => {
                 </motion.button>
               ))}
             </div>
-            
+
             {/* Feature badges with staggered animation */}
             <div className="flex flex-wrap justify-center gap-3 mt-2">
               {[
                 { icon: BookOpen, text: "Lecture Summarization" },
                 { icon: Mic, text: "Audio Transcription" },
-                { icon: Paperclip, text: "File Analysis" }
+                { icon: Paperclip, text: "File Analysis" },
               ].map((badge, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   className="px-3 py-1 rounded-full bg-background/50 border border-smartmate-teal/20 text-xs flex items-center gap-1.5"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 1 + (index * 0.1), duration: 0.5 }}
+                  transition={{ delay: 1 + index * 0.1, duration: 0.5 }}
                 >
                   <badge.icon className="h-3 w-3 text-accent" />
                   <span>{badge.text}</span>

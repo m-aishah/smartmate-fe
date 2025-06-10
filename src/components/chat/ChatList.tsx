@@ -46,7 +46,7 @@ export function ChatList({ chats }: ChatListProps) {
           transition={{ duration: 0.3, delay: index * 0.1 }}
         >
           <Link
-            to={`/chats/${chat.id}`}
+            to={`/app/chats/${chat.id}`}
             className="block h-full"
           >
             <div className="h-full glass-card overflow-hidden backdrop-blur-md border-border/30 rounded-xl p-5 flex flex-col hover:shadow-lg transition-all duration-300 card-hover">

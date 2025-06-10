@@ -111,7 +111,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-32 px-4 relative overflow-hidden">
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80"
