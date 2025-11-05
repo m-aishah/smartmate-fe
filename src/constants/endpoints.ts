@@ -1,4 +1,3 @@
-
 const auth = {
   register: () => `/register`,
   login: () => `/login`,
@@ -8,6 +7,7 @@ const auth = {
 };
 
 const users = {
+  getUserData: () => `/user`,
   profile: () => `/edit/user`,
 };
 
@@ -65,4 +65,15 @@ const analytics = {
   engagement: () => `/analytics/engagement`,
 };
 
-export { auth, users, lectures, summaries, chats, quotes, system, quizzes, flashcards, analytics };
+export {
+  auth,
+  users,
+  lectures,
+  summaries,
+  chats,
+  quotes,
+  system,
+  quizzes,
+  flashcards,
+  analytics,
+};

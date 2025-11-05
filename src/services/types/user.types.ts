@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   email: string;
@@ -7,6 +6,11 @@ export interface User {
   userType?: string;
   createdAt: string;
   updatedAt: string;
+  streak?: number;
+  progress?: number;
+  hoursStudied?: number;
+  university?: string;
+  yearOfStudy?: number;
 }
 
 export interface UpdateUserRequest {

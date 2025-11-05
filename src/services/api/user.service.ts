@@ -1,11 +1,10 @@
-
-import { apiClient } from '@/lib/api-client';
-import { users } from '@/constants/endpoints';
-import { User, UpdateUserRequest } from '../types/user.types';
+import { apiClient } from "@/lib/api-client";
+import { users } from "@/constants/endpoints";
+import { User, UpdateUserRequest } from "../types/user.types";
 
 class UserService {
   async getProfile(): Promise<User> {
-    const response = await apiClient.get<User>(users.profile());
+    const response = await apiClient.get<User>(users.getUserData());
     return response.data;
   }
 
