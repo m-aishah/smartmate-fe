@@ -14,61 +14,135 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/ui/use-toast";
 import { useLanguage } from "@/hooks/store/use-language";
-import { mockTasks, Task } from "@/constants/dashboard";
+import { Task } from "@/constants/dashboard";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { taskService } from "@/services/api/task.service";
 
 export function TasksCard() {
   const { toast } = useToast();
   const { t } = useLanguage();
-  const [tasks, setTasks] = useState<Task[]>(mockTasks);
+  const queryClient = useQueryClient();
+
+  const { data: tasks = [], isLoading } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: () => taskService.getAllTasks(),
+  });
 
   const [newTask, setNewTask] = useState("");
   const [editingTask, setEditingTask] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
 
+  // Mutation for toggling task completion
+  const toggleTaskMutation = useMutation({
+    mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
+      taskService.putTask(id, { completed }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      // toast({
+      //   title: data.completed ? t("taskCompleted") : t("taskReopened"),
+      //   description: `"${data.title}" ${
+      //     data.completed ? t("hasBeenCompleted") : t("hasBeenReopened")
+      //   }.`,
+      // });
+    },
+    onError: () => {
+      toast({
+        title: t("error"),
+        description: t("taskUpdateFailed"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Mutation for adding a new task
+  const addTaskMutation = useMutation({
+    mutationFn: (taskData: Omit<Task, "id">) => taskService.postTask(taskData),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      setNewTask("");
+      toast({
+        title: t("taskAdded"),
+        description: `"${data.title}" ${t("hasBeenAddedToTasks")}.`,
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("error"),
+        description: t("taskAddFailed"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Mutation for deleting a task
+  const deleteTaskMutation = useMutation({
+    mutationFn: (id: string) => taskService.deleteTask(id),
+    onSuccess: (_, id) => {
+      const task = tasks.find((t) => t.id === id);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      if (task) {
+        toast({
+          title: t("taskDeleted"),
+          description: `"${task.title}" ${t("hasBeenRemoved")}.`,
+        });
+      }
+    },
+    onError: () => {
+      toast({
+        title: t("error"),
+        description: t("taskDeleteFailed"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Mutation for updating a task
+  const updateTaskMutation = useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: Partial<Omit<Task, "id">>;
+    }) => taskService.putTask(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      setEditingTask(null);
+      setEditValue("");
+      toast({
+        title: t("taskUpdated"),
+        description: t("taskHasBeenUpdated"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("error"),
+        description: t("taskUpdateFailed"),
+        variant: "destructive",
+      });
+    },
+  });
+
   const toggleTask = (id: string) => {
     const task = tasks.find((t) => t.id === id);
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-
     if (task) {
-      toast({
-        title: task.completed ? t("taskReopened") : t("taskCompleted"),
-        description: `"${task.title}" ${
-          task.completed ? t("hasBeenReopened") : t("hasBeenCompleted")
-        }.`,
-      });
+      toggleTaskMutation.mutate({ id, completed: !task.completed });
     }
   };
 
   const addTask = () => {
     if (newTask.trim()) {
-      const task: Task = {
-        id: Date.now().toString(),
+      const taskData: Omit<Task, "id"> = {
         title: newTask,
         completed: false,
         priority: "medium",
       };
-      setTasks((prev) => [...prev, task]);
-      setNewTask("");
-      toast({
-        title: t("taskAdded"),
-        description: `"${newTask}" ${t("hasBeenAddedToTasks")}.`,
-      });
+      addTaskMutation.mutate(taskData);
     }
   };
 
   const deleteTask = (id: string) => {
-    const task = tasks.find((t) => t.id === id);
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-    if (task) {
-      toast({
-        title: t("taskDeleted"),
-        description: `"${task.title}" ${t("hasBeenRemoved")}.`,
-      });
-    }
+    deleteTaskMutation.mutate(id);
   };
 
   const startEdit = (task: Task) => {
@@ -78,16 +152,9 @@ export function TasksCard() {
 
   const saveEdit = () => {
     if (editValue.trim() && editingTask) {
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.id === editingTask ? { ...task, title: editValue } : task
-        )
-      );
-      setEditingTask(null);
-      setEditValue("");
-      toast({
-        title: t("taskUpdated"),
-        description: t("taskHasBeenUpdated"),
+      updateTaskMutation.mutate({
+        id: editingTask,
+        data: { title: editValue },
       });
     }
   };
@@ -134,6 +201,23 @@ export function TasksCard() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Card className="glass-card border-smartmate-teal/20 hover:border-smartmate-teal/40 transition-all duration-300 relative z-20">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg">{t("tasks")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center py-8">
+            <div className="text-sm text-muted-foreground">
+              {t("loading")}...
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="glass-card border-smartmate-teal/20 hover:border-smartmate-teal/40 transition-all duration-300 relative z-20">
       <CardHeader className="pb-3">
@@ -162,11 +246,13 @@ export function TasksCard() {
               }
             }}
             className="text-sm relative z-40"
+            disabled={addTaskMutation.isPending}
           />
           <Button
             size="sm"
             onClick={addTask}
             className="bg-smartmate-teal hover:bg-smartmate-teal/90 text-white shrink-0 relative z-40"
+            disabled={addTaskMutation.isPending}
           >
             <Plus className="h-4 w-4" />
           </Button>
@@ -187,6 +273,7 @@ export function TasksCard() {
                   size="sm"
                   onClick={() => toggleTask(task.id)}
                   className="p-0 h-5 w-5 shrink-0 relative z-60"
+                  disabled={toggleTaskMutation.isPending}
                 >
                   {task.completed ? (
                     <CheckCircle className="h-4 w-4 text-smartmate-teal" />
@@ -213,11 +300,13 @@ export function TasksCard() {
                         }}
                         className="h-6 text-sm relative z-60"
                         autoFocus
+                        disabled={updateTaskMutation.isPending}
                       />
                       <Button
                         size="sm"
                         onClick={saveEdit}
                         className="h-6 px-2 text-xs bg-smartmate-teal hover:bg-smartmate-teal/90 text-white relative z-60"
+                        disabled={updateTaskMutation.isPending}
                       >
                         {t("save")}
                       </Button>
@@ -226,6 +315,7 @@ export function TasksCard() {
                         variant="outline"
                         onClick={cancelEdit}
                         className="h-6 px-2 text-xs relative z-60"
+                        disabled={updateTaskMutation.isPending}
                       >
                         {t("cancel")}
                       </Button>
@@ -241,7 +331,7 @@ export function TasksCard() {
                       >
                         {task.title}
                       </span>
-                      {task.priority && (
+                      {/* {task.priority && (
                         <Badge
                           variant="outline"
                           className={`text-xs ${getPriorityColor(
@@ -250,7 +340,7 @@ export function TasksCard() {
                         >
                           {task.priority}
                         </Badge>
-                      )}
+                      )} */}
                     </div>
                   )}
                   {task.dueDate && (
@@ -275,6 +365,7 @@ export function TasksCard() {
                       size="sm"
                       onClick={() => deleteTask(task.id)}
                       className="h-6 w-6 p-0 text-red-500 hover:bg-red-50"
+                      disabled={deleteTaskMutation.isPending}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>
@@ -284,6 +375,12 @@ export function TasksCard() {
             </motion.div>
           ))}
         </AnimatePresence>
+
+        {tasks.length === 0 && (
+          <div className="text-center py-8 text-sm text-muted-foreground">
+            {t("noTasksYet")}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

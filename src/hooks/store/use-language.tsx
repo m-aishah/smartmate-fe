@@ -267,6 +267,10 @@ export interface Translations {
   tasksDownloaded: string;
   tasksDownloadedDescription: string;
   due: string;
+  taskUpdateFailed: string;
+  taskAddFailed: string;
+  taskDeleteFailed: string;
+  noTasksYet: string;
 
   // Quiz translations
   quizzes: string;
@@ -580,6 +584,10 @@ const en: Translations = {
   tasksDownloaded: "Tasks downloaded",
   tasksDownloadedDescription: "Your tasks have been downloaded successfully",
   due: "Due",
+  taskUpdateFailed: "Task update failed. Please try again.",
+  taskAddFailed: "Failed to add task. Please try again.",
+  taskDeleteFailed: "Failed to delete task. Please try again.",
+  noTasksYet: "No tasks yet. Add your first task to get started.",
 
   quizzes: "Quizzes",
   createNewQuiz: "Create New Quiz",
@@ -900,6 +908,10 @@ const tr: Translations = {
   tasksDownloaded: "Görevler indirildi",
   tasksDownloadedDescription: "Görevleriniz başarıyla indirildi",
   due: "Bitiş",
+  taskUpdateFailed: "Görev güncellemesi başarısız. Lütfen tekrar deneyin.",
+  taskAddFailed: "Görev eklenemedi. Lütfen tekrar deneyin.",
+  taskDeleteFailed: "Görev silinemedi. Lütfen tekrar deneyin.",
+  noTasksYet: "Henüz görev yok. Başlamak için ilk görevinizi ekleyin.",
 
   quizzes: "Quizler",
   createNewQuiz: "Yeni Quiz Oluştur",
@@ -1211,6 +1223,10 @@ const ar: Translations = {
   tasksDownloaded: "تم تحميل المهام",
   tasksDownloadedDescription: "تم تحميل مهامك بنجاح",
   due: "الاستحقاق",
+  taskUpdateFailed: "فشل تحديث المهمة. يرجى المحاولة مرة أخرى.",
+  taskAddFailed: "تعذر إضافة المهمة. يرجى المحاولة مرة أخرى.",
+  taskDeleteFailed: "فشل حذف المهمة. يرجى المحاولة مرة أخرى.",
+  noTasksYet: "لا توجد مهام بعد. أضف مهمتك الأولى للبدء.",
 
   quizzes: "الاختبارات",
   createNewQuiz: "إنشاء اختبار جديد",

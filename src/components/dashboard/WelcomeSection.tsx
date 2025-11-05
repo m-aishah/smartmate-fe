@@ -3,7 +3,6 @@ import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/hooks/store/use-language";
 import { useQuery } from "@tanstack/react-query";
 import { userService } from "@/services";
-import { mockUser } from "@/constants/dashboard";
 
 export function WelcomeSection() {
   const { t } = useLanguage();

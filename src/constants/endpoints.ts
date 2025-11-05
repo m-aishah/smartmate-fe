@@ -65,6 +65,13 @@ const analytics = {
   engagement: () => `/analytics/engagement`,
 };
 
+const tasks = {
+  getAll: () => `/tasks`,
+  postTasks: () => `/tasks`,
+  putTasks: (id: string) => `/tasks/${id}`,
+  deleteTasks: (id: string) => `/tasks/${id}`,
+};
+
 export {
   auth,
   users,
@@ -76,4 +83,5 @@ export {
   quizzes,
   flashcards,
   analytics,
+  tasks,
 };
