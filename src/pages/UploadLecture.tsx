@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/hooks/store/use-language";
+import PageHeader from "@/components/layout/PageHeader";
 import { useToast } from "@/hooks/ui/use-toast";
 import { useCreateLecture } from "@/hooks/api/use-lectures";
 import { UploadProgressModal } from "@/components/lectures/UploadProgressModal";
@@ -183,7 +184,7 @@ const UploadLecture = () => {
     <>
       <div className="max-w-2xl mx-auto pb-24">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">{t("uploadLecture")}</h1>
+          <PageHeader title={t("uploadLecture")} />
           <Button variant="ghost" size="icon" onClick={handleCancel}>
             <X className="h-5 w-5" />
           </Button>

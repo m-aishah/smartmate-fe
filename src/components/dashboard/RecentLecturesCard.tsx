@@ -34,7 +34,7 @@ export function RecentLecturesCard() {
   };
 
   return (
-    <Card className="h-full subtle-border card-hover">
+    <Card className="h-full portal-card">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">{t("recentLectures")}</CardTitle>
       </CardHeader>

@@ -26,6 +26,7 @@ import { PerformanceTable } from "@/components/analytics/PerformanceTable";
 import { useScrollAnimation } from "@/hooks/ui/use-scroll-animation";
 import { TechCard } from "@/components/ui/tech-card";
 import { useIsMobile } from "@/hooks/ui/use-mobile";
+import PageHeader from "@/components/layout/PageHeader";
 import { 
   useAnalyticsOverview, 
   useWeeklyEngagement, 
@@ -63,19 +64,7 @@ export default function Analytics() {
   return (
     <div className="space-y-4 md:space-y-6 pb-4 md:pb-8">
       {/* Page Header */}
-      <div className="flex flex-col gap-1 md:gap-2">
-        <motion.h1 
-          className="text-2xl md:text-3xl font-orbitron smartmate-text-gradient glow-effect"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t("analytics")}
-        </motion.h1>
-        <p className="text-sm md:text-base text-muted-foreground">
-          {t("analyticsDescription")}
-        </p>
-      </div>
+      <PageHeader title={t("analytics")} subtitle={t("analyticsDescription")} />
       
       {/* Stats Overview */}
       <motion.div

@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLanguage } from "@/hooks/store/use-language";
+import PageHeader from "@/components/layout/PageHeader";
 import { useToast } from "@/hooks/ui/use-toast";
 import { useCreateLecture } from "@/hooks/api/use-lectures";
 
@@ -306,9 +307,7 @@ const RecordLecture = () => {
   return (
     <div className="max-w-3xl mx-auto pb-24">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold font-orbitron smartmate-text-gradient">
-          Record Lecture
-        </h1>
+        <PageHeader title={t("recordLecture") || 'Record Lecture'} />
         <Button
           variant="ghost"
           size="icon"

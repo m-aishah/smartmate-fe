@@ -6,6 +6,7 @@ import { LectureFilters } from "@/components/lectures/LectureFilters";
 import { LectureGrid } from "@/components/lectures/LectureGrid";
 import { UploadLectureModal } from "@/components/lectures/UploadLectureModal";
 import { motion } from "framer-motion";
+import PageHeader from "@/components/layout/PageHeader";
 import { useIsMobile } from "@/hooks/ui/use-mobile";
 import { cn } from "@/lib/utils";
 import { useLectures, useUpdateLecture } from "@/hooks/api/use-lectures";
@@ -77,14 +78,7 @@ const Lectures = () => {
   return (
     <div className="space-y-4 md:space-y-6 pb-4 md:pb-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <motion.h1
-          className="text-2xl md:text-3xl font-orbitron smartmate-text-gradient glow-effect"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t("lectures")} ({lectures.length})
-        </motion.h1>
+        <PageHeader title={`${t("lectures")} (${lectures.length})`} />
 
         {/* 3D rotating atom-like element - hidden on mobile */}
         {!isMobile && (

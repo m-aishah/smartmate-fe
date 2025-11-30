@@ -173,7 +173,7 @@ export function DeadlinesCard() {
 
   if (isLoading) {
     return (
-      <Card className="h-full subtle-border card-hover">
+      <Card className="h-full portal-card">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg">{t("upcomingDeadlines")}</CardTitle>
         </CardHeader>
@@ -189,7 +189,7 @@ export function DeadlinesCard() {
   }
 
   return (
-    <Card className="h-full subtle-border card-hover">
+    <Card className="h-full portal-card">
       <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
           <CardTitle className="text-lg">{t("upcomingDeadlines")}</CardTitle>
@@ -198,7 +198,8 @@ export function DeadlinesCard() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-smartmate-teal hover:bg-smartmate-teal/10"
+                className="text-smartmate-teal hover:bg-smartmate-teal/10 relative z-50 pointer-events-auto"
+                aria-label={t("addDeadline")}
               >
                 <Plus className="h-4 w-4" />
               </Button>

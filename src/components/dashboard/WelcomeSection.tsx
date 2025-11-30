@@ -13,7 +13,7 @@ export function WelcomeSection() {
   });
 
   return (
-    <Card className="overflow-hidden subtle-border">
+    <Card className="overflow-hidden portal-card">
       <div className="h-24 bg-gradient-to-r from-primary/20 to-accent/40"></div>
       <CardContent className="-mt-12 p-6">
         {isLoading ? (

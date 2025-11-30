@@ -30,9 +30,9 @@ export function QuoteCard() {
   }, [apiQuotes, language, isLoading]);
 
   // Show loading state briefly
-  if (isLoading && !quote.text) {
+    if (isLoading && !quote.text) {
     return (
-      <Card className="overflow-hidden subtle-border card-hover">
+      <Card className="portal-card overflow-hidden">
         <CardContent className="p-6">
           <h3 className="text-sm font-medium text-muted-foreground mb-4">
             {t("quote")}
@@ -48,7 +48,7 @@ export function QuoteCard() {
   }
 
   return (
-    <Card className="overflow-hidden subtle-border card-hover">
+    <Card className="portal-card overflow-hidden">
       <CardContent className="p-6">
         <h3 className="text-sm font-medium text-muted-foreground mb-4">
           {t("quote")}

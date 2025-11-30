@@ -51,7 +51,7 @@ const Help = () => {
       </div>
 
       {/* About SmartMate Section */}
-      <Card className="glass-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/5 to-smartmate-teal/5">
+      <Card className="portal-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/5 to-smartmate-teal/5">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Sparkles className="h-6 w-6 text-smartmate-teal" />
@@ -124,7 +124,7 @@ const Help = () => {
       </Card>
       
       {/* FAQ Section */}
-      <Card className="glass-card border-smartmate-teal/30 relative z-20">
+      <Card className="portal-card border-smartmate-teal/30 relative z-20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-smartmate-teal" />
@@ -151,7 +151,7 @@ const Help = () => {
       </Card>
       
       {/* Contact Support Section */}
-      <Card className="glass-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/5 to-smartmate-lavender/5">
+      <Card className="portal-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/5 to-smartmate-lavender/5">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Mail className="h-5 w-5 text-smartmate-blue" />
@@ -176,7 +176,7 @@ const Help = () => {
       </Card>
 
       {/* Features Overview */}
-      <Card className="glass-card border-smartmate-lavender/30">
+      <Card className="portal-card border-smartmate-lavender/30">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-smartmate-lavender" />

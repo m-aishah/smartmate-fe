@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/hooks/store/use-language";
+import PageHeader from "@/components/layout/PageHeader";
 import { useToast } from "@/hooks/ui/use-toast";
 
 const ConnectTeamsLecture = () => {
@@ -57,7 +58,7 @@ const ConnectTeamsLecture = () => {
   return (
     <div className="max-w-2xl mx-auto pb-24">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">{t("connectTeamsLecture")}</h1>
+        <PageHeader title={t("connectTeamsLecture")} />
         <Button variant="ghost" size="icon" onClick={handleCancel}>
           <X className="h-5 w-5" />
         </Button>

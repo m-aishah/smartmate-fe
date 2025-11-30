@@ -1,5 +1,6 @@
 
 import { useLanguage } from "@/hooks/store/use-language";
+import PageHeader from "@/components/layout/PageHeader";
 import { ChatList } from "@/components/chat/ChatList";
 import { BottomNav } from "@/components/chat/BottomNav";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,7 @@ const Chats = () => {
     return (
       <div className="space-y-6 pb-24">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">{t("chats")}</h1>
+          <PageHeader title={t("chats")} />
           <Button disabled className="bg-gradient-to-r from-smartmate-teal to-smartmate-blue text-white">
             <PlusCircle className="mr-2 h-4 w-4" />
             {t("newChat")}
@@ -43,7 +44,7 @@ const Chats = () => {
     return (
       <div className="space-y-6 pb-24">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">{t("chats")}</h1>
+          <PageHeader title={t("chats")} />
           <motion.div 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -74,7 +75,7 @@ const Chats = () => {
   return (
     <div className="space-y-6 pb-24">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">{t("chats")}</h1>
+        <PageHeader title={t("chats")} />
         
         <motion.div 
           whileHover={{ scale: 1.05 }}

@@ -231,6 +231,12 @@
     @apply bg-gradient-to-br from-smartmate-mint/20 to-smartmate-teal/20 border-smartmate-mint/40;
   }
 
+  /* Portal-wide card style based on TasksCard */
+  .portal-card {
+    @apply glass-card border-smartmate-teal/20 hover:border-smartmate-teal/40 transition-all duration-300 relative z-20;
+  }
+
+
   /* Animations */
   .pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;

@@ -29,7 +29,7 @@ export function QuizCard({ quiz, onDownload, onStart, onPractice }: QuizCardProp
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
     >
-      <Card className="glass-card border-smartmate-blue/30 hover:border-smartmate-blue/50 transition-all duration-300 relative overflow-hidden bg-gradient-to-br from-smartmate-blue/5 to-smartmate-lavender/5">
+      <Card className="portal-card border-smartmate-blue/30 hover:border-smartmate-blue/50 transition-all duration-300 relative overflow-hidden bg-gradient-to-br from-smartmate-blue/5 to-smartmate-lavender/5">
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-smartmate-blue/5 to-smartmate-lavender/5"
           animate={{ opacity: isHovered ? 1 : 0 }}

@@ -80,7 +80,7 @@ export function FlashcardFan({ flashcard, onDownload, onStudy }: FlashcardFanPro
                 transition={{ duration: 0.3 }}
               >
                 <Card className={cn(
-                  "h-full glass-card hover:shadow-xl transition-all duration-300 border-2",
+                  "h-full portal-card hover:shadow-xl transition-all duration-300",
                   `bg-gradient-to-br ${colorVariants[index % colorVariants.length]}`
                 )}>
                   <CardContent className="h-full flex items-center justify-center p-4">

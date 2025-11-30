@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/store/use-language";
 import { motion } from "framer-motion";
+import PageHeader from "@/components/layout/PageHeader";
 import { Plus, BookOpen, Zap, Loader2 } from "lucide-react";
 import { CreateQuizModal } from "@/components/quizzes/CreateQuizModal";
 import { FlashcardFan } from "@/components/quizzes/FlashcardFan";
@@ -92,22 +93,7 @@ const Quizzes = () => {
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 p-6 bg-gradient-to-r from-smartmate-teal/10 via-smartmate-blue/10 to-smartmate-lavender/10 rounded-2xl border border-smartmate-teal/20">
           <div className="flex-1">
-            <motion.h1 
-              className="text-4xl font-bold font-orbitron smartmate-text-gradient glow-effect mb-3"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {t("studyTools")}
-            </motion.h1>
-            <motion.p 
-              className="text-muted-foreground text-lg"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {t("studyToolsDescription")}
-            </motion.p>
+            <PageHeader title={t("studyTools")} subtitle={t("studyToolsDescription")} />
           </div>
           
           <motion.div
@@ -151,7 +137,7 @@ const Quizzes = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="space-y-8"
             >
-              <Card className="glass-card border-smartmate-teal/30 bg-gradient-to-br from-smartmate-teal/10 to-smartmate-cyan/10 shadow-xl">
+              <Card className="portal-card border-smartmate-teal/30 bg-gradient-to-br from-smartmate-teal/10 to-smartmate-cyan/10 shadow-xl">
                 <CardHeader className="pb-6">
                   <CardTitle className="flex items-center gap-3 text-2xl smartmate-text-gradient">
                     <div className="p-3 rounded-full bg-smartmate-teal/20">
@@ -198,7 +184,7 @@ const Quizzes = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="space-y-8"
             >
-              <Card className="glass-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/10 to-smartmate-lavender/10 shadow-xl">
+              <Card className="portal-card border-smartmate-blue/30 bg-gradient-to-br from-smartmate-blue/10 to-smartmate-lavender/10 shadow-xl">
                 <CardHeader className="pb-6">
                   <CardTitle className="flex items-center gap-3 text-2xl smartmate-text-gradient">
                     <div className="p-3 rounded-full bg-smartmate-blue/20">
