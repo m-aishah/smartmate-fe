@@ -1,20 +1,25 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import QuizService, { Quiz, Flashcard } from "@/services/QuizService";
 import { useToast } from "@/hooks/ui/use-toast";
+// Use mock data for listing quizzes/flashcards while backend is not used
+import { mockQuizzes, mockFlashcards, mockAsync } from '@/mocks/study';
 
-const quizService = new QuizService();
+// const quizService = new QuizService();
 
 export function useQuizzes() {
   return useQuery({
     queryKey: ["quizzes"],
-    queryFn: () => quizService.getAllQuizzes(),
+    // original API call commented out for now:
+    // queryFn: () => quizService.getAllQuizzes(),
+    queryFn: () => mockAsync(mockQuizzes),
   });
 }
 
 export function useFlashcards() {
   return useQuery({
     queryKey: ["flashcards"],
-    queryFn: () => quizService.getAllFlashcards(),
+    // queryFn: () => quizService.getAllFlashcards(),
+    queryFn: () => mockAsync(mockFlashcards),
   });
 }
 

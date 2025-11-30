@@ -101,7 +101,7 @@ export function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
       <div className="absolute top-4 left-4 z-20">
         <Link 
           to="/" 
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group relative z-50 pointer-events-auto"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
           <span className="text-sm">Back to Home</span>
@@ -181,7 +181,7 @@ export function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">{t("password")}</Label>
                 {mode === "login" && (
-                  <Link to="/forgot-password" className="text-sm text-smartmate-teal hover:underline">
+                  <Link to="/forgot-password" className="text-sm text-smartmate-teal hover:underline relative z-50 pointer-events-auto">
                     {t("forgotPassword")}
                   </Link>
                 )}
@@ -232,15 +232,15 @@ export function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
             <div className="text-center text-sm">
               {mode === "login" ? (
                 <div>
-                  {t("dontHaveAccount")}{" "}
-                  <Link to="/signup" className="text-smartmate-teal hover:underline font-medium">
+                  {t("dontHaveAccount")} {" "}
+                  <Link to="/signup" className="text-smartmate-teal hover:underline font-medium relative z-50 pointer-events-auto">
                     {t("signUp")}
                   </Link>
                 </div>
               ) : (
                 <div>
-                  {t("alreadyHaveAccount")}{" "}
-                  <Link to="/login" className="text-smartmate-teal hover:underline font-medium">
+                  {t("alreadyHaveAccount")} {" "}
+                  <Link to="/login" className="text-smartmate-teal hover:underline font-medium relative z-50 pointer-events-auto">
                     {t("logIn")}
                   </Link>
                 </div>

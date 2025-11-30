@@ -72,6 +72,13 @@ const tasks = {
   deleteTasks: (id: string) => `/tasks/${id}`,
 };
 
+const deadlines = {
+  getAll: () => `/deadlines`,
+  postDeadlines: () => `/deadlines`,
+  putDeadlines: (id: string) => `/deadlines/${id}`,
+  deleteDeadlines: (id: string) => `/deadlines/${id}`,
+};
+
 export {
   auth,
   users,
@@ -84,4 +91,5 @@ export {
   flashcards,
   analytics,
   tasks,
+  deadlines,
 };

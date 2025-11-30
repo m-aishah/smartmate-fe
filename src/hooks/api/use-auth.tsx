@@ -1,5 +1,10 @@
-
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import Authentication from "@/services/Authentication";
 
 interface AuthContextType {
@@ -7,7 +12,12 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (firstName: string, lastName: string, email: string, password: string) => Promise<void>;
+  signUp: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
   signOut: () => void;
 }
 
@@ -41,8 +51,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(userPayload);
   };
 
-  const signUp = async (firstName: string, lastName: string, email: string, password: string) => {
-    await auth.register({ firstName, lastName, email, password });
+  const signUp = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => {
+    console.log("Signing up with:", { firstName, lastName, email });
+    const response = await auth.register({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+    console.log("Signup response:", response);
     const userPayload = auth.getAccessTokenPayload();
     setUser(userPayload);
   };

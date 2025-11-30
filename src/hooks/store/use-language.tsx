@@ -272,6 +272,26 @@ export interface Translations {
   taskDeleteFailed: string;
   noTasksYet: string;
 
+  // Deadline translations
+  deadlineAdded: string;
+  hasBeenAdded: string;
+  deadlineAddFailed: string;
+  deadlineUpdated: string;
+  hasBeenUpdated: string;
+  deadlineUpdateFailed: string;
+  deadlineDeleted: string;
+  deadlineDeleteFailed: string;
+  confirmDelete: string;
+  addDeadline: string;
+  deadlineTitle: string;
+  course: string;
+  courseName: string;
+  dueDate: string;
+  add: string;
+  noDeadlinesYet: string;
+  editDeadline: string;
+  daysLeft: string;
+
   // Quiz translations
   quizzes: string;
   createNewQuiz: string;
@@ -588,6 +608,25 @@ const en: Translations = {
   taskAddFailed: "Failed to add task. Please try again.",
   taskDeleteFailed: "Failed to delete task. Please try again.",
   noTasksYet: "No tasks yet. Add your first task to get started.",
+
+  deadlineAdded: "Deadline added",
+  hasBeenAdded: "has been added",
+  deadlineAddFailed: "Failed to add deadline. Please try again.",
+  deadlineUpdated: "Deadline updated",
+  hasBeenUpdated: "has been updated",
+  deadlineUpdateFailed: "Failed to update deadline. Please try again.",
+  deadlineDeleted: "Deadline deleted",
+  deadlineDeleteFailed: "Failed to delete deadline. Please try again.",
+  confirmDelete: "Are you sure you want to delete this deadline?",
+  addDeadline: "Add Deadline",
+  deadlineTitle: "Deadline Title",
+  course: "Course",
+  courseName: "Course Name",
+  dueDate: "Due Date",
+  add: "Add",
+  noDeadlinesYet: "No deadlines yet. Add your first deadline to get started.",
+  editDeadline: "Edit Deadline",
+  daysLeft: "Days Left",
 
   quizzes: "Quizzes",
   createNewQuiz: "Create New Quiz",
@@ -913,6 +952,26 @@ const tr: Translations = {
   taskDeleteFailed: "Görev silinemedi. Lütfen tekrar deneyin.",
   noTasksYet: "Henüz görev yok. Başlamak için ilk görevinizi ekleyin.",
 
+  deadlineAdded: "Son tarih eklendi",
+  hasBeenAdded: "eklenmiştir",
+  deadlineAddFailed: "Son tarih eklenemedi. Lütfen tekrar deneyin.",
+  deadlineUpdated: "Son tarih güncellendi",
+  hasBeenUpdated: "güncellenmiştir",
+  deadlineUpdateFailed: "Son tarih güncellenemedi. Lütfen tekrar deneyin.",
+  deadlineDeleted: "Son tarih silindi",
+  deadlineDeleteFailed: "Son tarih silinemedi. Lütfen tekrar deneyin.",
+  confirmDelete: "Bu son tarihi silmek istediğinizden emin misiniz?",
+  addDeadline: "Son Tarih Ekle",
+  deadlineTitle: "Son Tarih Başlığı",
+  course: "Kurs",
+  courseName: "Kurs Adı",
+  dueDate: "Son Tarih",
+  add: "Ekle",
+  noDeadlinesYet:
+    "Henüz son tarih yok. Başlamak için ilk son tarihinizi ekleyin.",
+  editDeadline: "Son Tarihi Düzenle",
+  daysLeft: "Kalan Günler",
+
   quizzes: "Quizler",
   createNewQuiz: "Yeni Quiz Oluştur",
   studyFlashcards: "Flashcard Çalış",
@@ -1227,6 +1286,25 @@ const ar: Translations = {
   taskAddFailed: "تعذر إضافة المهمة. يرجى المحاولة مرة أخرى.",
   taskDeleteFailed: "فشل حذف المهمة. يرجى المحاولة مرة أخرى.",
   noTasksYet: "لا توجد مهام بعد. أضف مهمتك الأولى للبدء.",
+
+  deadlineAdded: "تم إضافة الموعد النهائي",
+  hasBeenAdded: "تمت إضافته",
+  deadlineAddFailed: "فشل إضافة الموعد النهائي. يرجى المحاولة مرة أخرى.",
+  deadlineUpdated: "تم تحديث الموعد النهائي",
+  hasBeenUpdated: "تمت تحديثه",
+  deadlineUpdateFailed: "فشل تحديث الموعد النهائي. يرجى المحاولة مرة أخرى.",
+  deadlineDeleted: "تم حذف الموعد النهائي",
+  deadlineDeleteFailed: "فشل حذف الموعد النهائي. يرجى المحاولة مرة أخرى.",
+  confirmDelete: "هل أنت متأكد أنك تريد حذف هذا الموعد النهائي؟",
+  addDeadline: "إضافة موعد نهائي",
+  deadlineTitle: "عنوان الموعد النهائي",
+  course: "الدورة",
+  courseName: "اسم الدورة",
+  dueDate: "تاريخ الاستحقاق",
+  add: "إضافة",
+  noDeadlinesYet: "لا توجد مواعيد نهائية بعد. أضف موعدك النهائي الأول للبدء.",
+  editDeadline: "تعديل الموعد النهائي",
+  daysLeft: "الأيام المتبقية",
 
   quizzes: "الاختبارات",
   createNewQuiz: "إنشاء اختبار جديد",
